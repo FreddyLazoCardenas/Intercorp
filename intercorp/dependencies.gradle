@@ -16,6 +16,7 @@ ext {
     newApiPlaces = '1.1.0'
     androidSupportVersion = '28.0.0'
     firebaseVersion = '12.0.0'
+    firebaseAuthVersion = '17.0.0'
     firebaseMessagingVersion = '18.0.0'
     firebaseCoreVersion = '16.0.9'
     playServicesVersion = '12.0.0'
@@ -69,7 +70,7 @@ ext {
             androidDesign         : "com.android.support:design:${androidSupportVersion}",
             firebaseBase          : "com.google.android.gms:play-services-base:${playServicesVersion}",
             firebaseCore          : "com.google.firebase:firebase-core:${firebaseCoreVersion}",
-            firebaseAuth          : "com.google.firebase:firebase-auth:${firebaseVersion}",
+            firebaseAuth          : "com.google.firebase:firebase-auth:${firebaseAuthVersion}",
             firebaseCrashReporting: "com.google.firebase:firebase-crash:${firebaseVersion}",
             firebaseMessaging     : "com.google.firebase:firebase-messaging:${firebaseMessagingVersion}",
             firebaseRemoteConfig  : "com.google.firebase:firebase-config:${firebaseVersion}",

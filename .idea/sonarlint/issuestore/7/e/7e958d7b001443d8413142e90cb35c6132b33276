@@ -1,0 +1,7 @@
+
+Tsquid:S3398M"1Move this method into "FacebookCallbackComplete".(ú÷«ìşÿÿÿÿ8Úæ‰Ÿ³-
+Lsquid:S1481T")Remove this unused "user" local variable.(è÷ÿƒıÿÿÿÿ8áŠŸ³-
+isquid:UselessImportCheck"?Remove this unused import 'android.support.annotation.NonNull'.(¼Åß8áŠŸ³-
+|squid:UselessImportCheck"LRemove this unused import 'com.google.android.gms.tasks.OnCompleteListener'.(Çğ¸Òÿÿÿÿÿ8áŠŸ³-
+isquid:UselessImportCheck">Remove this unused import 'com.google.android.gms.tasks.Task'.(¦âÏô8áŠŸ³-
+jsquid:UselessImportCheck"@Remove this unused import 'com.google.firebase.auth.AuthResult'.(âÂ8áŠŸ³-
