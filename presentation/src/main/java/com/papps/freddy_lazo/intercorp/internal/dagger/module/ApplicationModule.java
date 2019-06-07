@@ -2,9 +2,12 @@ package com.papps.freddy_lazo.intercorp.internal.dagger.module;
 
 import android.content.Context;
 
+import com.papps.freddy_lazo.data.network.firebase.References;
+import com.papps.freddy_lazo.data.repository.UserDataRepository;
 import com.papps.freddy_lazo.data.sharedPreferences.PreferencesManager;
 import com.papps.freddy_lazo.domain.executor.PostExecutionThread;
 import com.papps.freddy_lazo.domain.executor.ThreadExecutor;
+import com.papps.freddy_lazo.domain.repository.UserRepository;
 import com.papps.freddy_lazo.intercorp.AndroidApplication;
 import com.papps.freddy_lazo.intercorp.UIThread;
 import com.papps.freddy_lazo.data.executor.JobExecutor;
@@ -52,17 +55,17 @@ public class ApplicationModule {
         return firebaseDB;
     }
 
-/*    @Provides
+    @Provides
     @Singleton
-    UserRepository provideUserDataRepository(UserDataRepository userDataRepository) {
+    UserRepository provideUserRepository(UserDataRepository userDataRepository) {
         return userDataRepository;
     }
 
     @Provides
     @Singleton
-    UtilsRepository provideUserUtilsRepository(UtilsDataRepository utilsDataRepository) {
-        return utilsDataRepository;
-    }*/
+    References provideReferences() {
+        return new References();
+    }
 
     @Provides
     @Singleton

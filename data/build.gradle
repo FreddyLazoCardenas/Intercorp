@@ -41,6 +41,7 @@ dependencies {
     api dataDependencies.rxJava
     api dataDependencies.rxAndroid
     api dataDependencies.javaxInject
+    api dataDependencies.firebaseDatabase
     api dataDependencies.loggingInterceptor
     api dataDependencies.room
     annotationProcessor dataDependencies.roomCompiler

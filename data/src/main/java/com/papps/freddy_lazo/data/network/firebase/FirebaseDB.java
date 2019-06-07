@@ -1,9 +1,12 @@
 package com.papps.freddy_lazo.data.network.firebase;
 
 
+import com.google.firebase.database.DatabaseReference;
+
+import io.reactivex.Observable;
+
 public interface FirebaseDB {
 
-   // Observable<DataSnapshot> observeValueEvent(Query query);
-
+    Observable<Void> observeSetValue(DatabaseReference reference, Object object);
 
 }

@@ -6,7 +6,9 @@ import android.content.Context;
 import com.papps.freddy_lazo.data.sharedPreferences.PreferencesManager;
 import com.papps.freddy_lazo.domain.executor.PostExecutionThread;
 import com.papps.freddy_lazo.domain.executor.ThreadExecutor;
+import com.papps.freddy_lazo.domain.repository.UserRepository;
 import com.papps.freddy_lazo.intercorp.internal.dagger.module.ApplicationModule;
+import com.papps.freddy_lazo.intercorp.navigation.Navigator;
 import com.papps.freddy_lazo.intercorp.view.activity.BaseActivity;
 
 import javax.inject.Singleton;
@@ -29,8 +31,10 @@ public interface ApplicationComponent {
 
     PostExecutionThread postExecutionThread();
 
-    //  Navigator navigator();
+    Navigator navigator();
 
     PreferencesManager preferenceManager();
+
+    UserRepository userRepository();
 
 }
