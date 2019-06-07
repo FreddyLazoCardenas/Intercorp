@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "784786600948",
+    "firebase_url": "https://intercorp-c008e.firebaseio.com",
+    "project_id": "intercorp-c008e",
+    "storage_bucket": "intercorp-c008e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784786600948:android:83e259bac6d8029f",
+        "android_client_info": {
+          "package_name": "com.papps.freddy_lazo.intercorp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784786600948-jbivesj54igt4q0nf44kg9c7tq4i1j7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDMZxPeutJnWrV4kXz5tfd4gBueDJu8c0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784786600948-jbivesj54igt4q0nf44kg9c7tq4i1j7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
