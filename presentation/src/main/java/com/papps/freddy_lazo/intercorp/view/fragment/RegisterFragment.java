@@ -1,5 +1,7 @@
 package com.papps.freddy_lazo.intercorp.view.fragment;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,52 +12,53 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.papps.freddy_lazo.intercorp.R;
 import com.papps.freddy_lazo.intercorp.internal.dagger.component.DaggerWelcomeFragmentComponent;
+import com.papps.freddy_lazo.intercorp.presenter.RegisterPresenter;
 import com.papps.freddy_lazo.intercorp.presenter.WelcomePresenter;
 import com.papps.freddy_lazo.intercorp.view.activity.WelcomeActivity;
+import com.papps.freddy_lazo.intercorp.view.interfaces.RegisterPresenterView;
 import com.papps.freddy_lazo.intercorp.view.interfaces.WelcomePresenterView;
-
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class WelcomeFragment extends BaseFragment implements WelcomePresenterView, FacebookCallback<LoginResult> {
+public class RegisterFragment extends BaseFragment implements RegisterPresenterView, DatePickerDialog.OnDateSetListener {
 
     @Inject
-    WelcomePresenter presenter;
+    RegisterPresenter presenter;
 
-    @BindView(R.id.login_button)
-    LoginButton loginButton;
+
+    @BindView(R.id.et_birthday)
+    EditText birthday;
 
     private WelcomeActivity activity;
-    private CallbackManager callbackManager;
     private FirebaseAuth firebaseAuth;
 
-
     public static Fragment newInstance() {
-        return new WelcomeFragment();
+        return new RegisterFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_welcome, container, false);
+        return inflater.inflate(R.layout.fragment_register, container, false);
     }
 
     @Override
@@ -73,6 +76,7 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        firebaseAuth = FirebaseAuth.getInstance();
         activity = (WelcomeActivity) getActivity();
         presenter.setView(this);
         initUI();
@@ -80,16 +84,11 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
 
     @Override
     public void initUI() {
-        FacebookSdk.sdkInitialize(activity);
-        initFacebookSignIn();
     }
 
-    private void initFacebookSignIn() {
-        firebaseAuth = FirebaseAuth.getInstance();
-        callbackManager = CallbackManager.Factory.create();
-        loginButton.setReadPermissions("email");
-        loginButton.setFragment(this);
-        loginButton.registerCallback(callbackManager, this);
+    @OnClick(R.id.et_birthday)
+    public void petBirthday() {
+        navigator.navigateToDatePicker(this);
     }
 
 
@@ -103,56 +102,6 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
         showMessage(activity, message);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void handleFacebookAccessToken(AccessToken token) {
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        //success
-                        presenter.isUserRegister();
-                    } else {
-                        showErrorMessage(getString(R.string.text_default_detail));
-                        // If sign in fails, display a message to the user.
-                    }
-                    // ...
-                });
-    }
-
-
-    @Override
-    public void onSuccess(LoginResult loginResult) {
-        handleFacebookAccessToken(loginResult.getAccessToken());
-        Log.d("welcome", "onSuccess");
-    }
-
-    @Override
-    public void onCancel() {
-        Log.d("welcome", "onCancel");
-    }
-
-    @Override
-    public void onError(FacebookException error) {
-        Log.d("welcome", error.getMessage());
-
-    }
-
-    @Override
-    public String getUserId() {
-        return firebaseAuth.getCurrentUser() != null ? firebaseAuth.getCurrentUser().getUid() : null;
-    }
-
-    @Override
-    public void successRequest(Boolean isRegister) {
-        if(!isRegister){
-            navigator.navigateToRegisterFragment(activity);
-        }
-    }
 
     @Override
     public void showLoading() {
@@ -161,6 +110,26 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
 
     @Override
     public void hideLoading() {
+
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        birthday.setText(String.format("%d-%d-%d", year, month + 1, dayOfMonth));
+    }
+
+    @OnClick(R.id.btn_register)
+    public void btnRegister(){
+        presenter.registerUser();
+    }
+
+    @Override
+    public String getUserId() {
+        return firebaseAuth.getCurrentUser() != null ? firebaseAuth.getCurrentUser().getUid() : null;
+    }
+
+    @Override
+    public void successRequest() {
 
     }
 }

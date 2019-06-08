@@ -7,10 +7,10 @@ import com.google.gson.Gson;
 
 public class UserModel implements Parcelable {
 
-    private String name;
-    private String lastName;
-    private int age;
-    private String birthDate;
+    public String name;
+    public String lastName;
+    public int age;
+    public String birthDate;
 
     public UserModel(String name, String lastName, int age, String birthDate) {
         this.name = name;

@@ -1,6 +1,5 @@
 package com.papps.freddy_lazo.intercorp.view.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

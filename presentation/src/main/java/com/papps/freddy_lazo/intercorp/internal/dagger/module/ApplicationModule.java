@@ -28,7 +28,6 @@ public class ApplicationModule {
         this.mApplication = application;
     }
 
-
     @Provides
     @Singleton
     Context provideApplicationContext() {

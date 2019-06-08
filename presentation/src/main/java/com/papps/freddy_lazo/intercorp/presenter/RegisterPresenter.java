@@ -2,6 +2,7 @@ package com.papps.freddy_lazo.intercorp.presenter;
 
 import com.papps.freddy_lazo.domain.interactor.DefaultObserver;
 import com.papps.freddy_lazo.domain.interactor.RegisterUser;
+import com.papps.freddy_lazo.intercorp.model.UserModel;
 import com.papps.freddy_lazo.intercorp.view.interfaces.RegisterPresenterView;
 
 import javax.inject.Inject;
@@ -21,9 +22,11 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenterView> {
         registerUser.dispose();
     }
 
-    public void registerUser(){
-        registerUser.bindParams("3" , null);
-        registerUser.execute(new RegisterUserObservable());
+    public void registerUser() {
+        if (view.getUserId() != null) {
+            registerUser.bindParams(view.getUserId(), new UserModel("Freddy","Lazo",3,"12-12-98"));
+            registerUser.execute(new RegisterUserObservable());
+        }
     }
 
     private class RegisterUserObservable extends DefaultObserver<Void> {
@@ -41,6 +44,7 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenterView> {
         @Override
         public void onComplete() {
             super.onComplete();
+            view.successRequest();
         }
     }
 }

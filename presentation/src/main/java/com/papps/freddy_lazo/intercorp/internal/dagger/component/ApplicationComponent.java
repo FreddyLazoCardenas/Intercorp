@@ -33,8 +33,8 @@ public interface ApplicationComponent {
 
     Navigator navigator();
 
-    PreferencesManager preferenceManager();
-
     UserRepository userRepository();
+
+    PreferencesManager preferenceManager();
 
 }

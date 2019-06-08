@@ -68,12 +68,9 @@ ext {
             multidex              : "com.android.support:multidex:${multidexVersion}",
             androidAppCompat      : "com.android.support:appcompat-v7:${androidSupportVersion}",
             androidDesign         : "com.android.support:design:${androidSupportVersion}",
-            firebaseBase          : "com.google.android.gms:play-services-base:${playServicesVersion}",
-            firebaseCore          : "com.google.firebase:firebase-core:${firebaseCoreVersion}",
-            firebaseAuth          : "com.google.firebase:firebase-auth:${firebaseAuthVersion}",
-            firebaseCrashReporting: "com.google.firebase:firebase-crash:${firebaseVersion}",
-            firebaseMessaging     : "com.google.firebase:firebase-messaging:${firebaseMessagingVersion}",
-            firebaseRemoteConfig  : "com.google.firebase:firebase-config:${firebaseVersion}",
+            firebaseCore          : "com.google.firebase:firebase-core:${firebaseVersion}",
+            firebaseAuth          : "com.google.firebase:firebase-auth:${firebaseVersion}",
+            firebaseMessaging     : "com.google.firebase:firebase-messaging:${firebaseVersion}",
             firebaseDatabase      : "com.google.firebase:firebase-database:${firebaseVersion}",
             dagger                : "com.google.dagger:dagger:${daggerVersion}",
             daggerCompiler        : "com.google.dagger:dagger-compiler:${daggerVersion}",
@@ -88,19 +85,10 @@ ext {
             glide                 : "com.github.bumptech.glide:glide:${glideVersion}",
             glideCompiler         : "com.github.bumptech.glide:compiler:${glideVersion}",
             constraintLayout      : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
-            googleLocation        : "com.google.android.gms:play-services-location:${playServicesVersion}",
-            googleMaps            : "com.google.android.gms:play-services-maps:${playServicesVersion}",
-            googlePlaces          : "com.google.android.gms:play-services-places:${playServicesVersion}",
-            newGooglePlaces       : "com.google.android.libraries.places:places:${newApiPlaces}",
-            googleAuth            : "com.google.android.gms:play-services-auth:${playServicesVersion}",
             facebookLogin         : "com.facebook.android:facebook-login:${facebookVersion}",
             facebook              : "com.facebook.android:facebook-android-sdk:${facebookVersion}",
-            lottie                : "com.airbnb.android:lottie:${lottieVersion}",
             collections           : "org.apache.commons:commons-collections4:${apacheVersion}",
-            crashlytics           : "com.crashlytics.sdk.android:crashlytics:${crashlyticsVersion}@aar",
-            rootbeer              : "com.scottyab:rootbeer-lib:${rootbeerVersion}",
-            securedPreferences    : "online.devliving:securedpreferencestore:${securedPreferencesVersion}",
-            scanQrCode            : "com.budiyev.android:code-scanner:${qrScanCodeVersion}"
+            crashlytics           : "com.crashlytics.sdk.android:crashlytics:${crashlyticsVersion}@aar"
 
     ]
 
