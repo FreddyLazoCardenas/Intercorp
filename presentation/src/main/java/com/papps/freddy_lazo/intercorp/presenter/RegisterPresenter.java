@@ -12,7 +12,7 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenterView> {
     private final RegisterUser registerUser;
 
     @Inject
-    public RegisterPresenter(RegisterUser registerUser) {
+    RegisterPresenter(RegisterUser registerUser) {
         this.registerUser = registerUser;
     }
 
@@ -22,7 +22,7 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenterView> {
     }
 
     public void registerUser(){
-        registerUser.bindParams(0L , null);
+        registerUser.bindParams("3" , null);
         registerUser.execute(new RegisterUserObservable());
     }
 

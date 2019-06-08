@@ -6,29 +6,46 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.papps.freddy_lazo.intercorp.R;
 import com.papps.freddy_lazo.intercorp.internal.dagger.component.DaggerWelcomeFragmentComponent;
 import com.papps.freddy_lazo.intercorp.presenter.WelcomePresenter;
 import com.papps.freddy_lazo.intercorp.view.activity.WelcomeActivity;
 import com.papps.freddy_lazo.intercorp.view.interfaces.WelcomePresenterView;
 
-import org.json.JSONObject;
 
 import javax.inject.Inject;
 
-import butterknife.OnClick;
+import butterknife.BindView;
 
-public class WelcomeFragment extends BaseFragment implements WelcomePresenterView {
-
+public class WelcomeFragment extends BaseFragment implements WelcomePresenterView, FacebookCallback<LoginResult> {
 
     @Inject
     WelcomePresenter presenter;
 
+    @BindView(R.id.login_button)
+    LoginButton loginButton;
+
     private WelcomeActivity activity;
+    private CallbackManager callbackManager;
+    private FirebaseAuth firebaseAuth;
+
 
     public static Fragment newInstance() {
         return new WelcomeFragment();
@@ -62,8 +79,19 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
 
     @Override
     public void initUI() {
-        presenter.connectFacebookManager();
+        FacebookSdk.sdkInitialize(activity);
+        initFacebookSignIn();
+        // presenter.connectFacebookManager();
     }
+
+    private void initFacebookSignIn() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        callbackManager = CallbackManager.Factory.create();
+        loginButton.setReadPermissions("email");
+        loginButton.setFragment(this);
+        loginButton.registerCallback(callbackManager, this);
+    }
+
 
     @Override
     public Context context() {
@@ -75,19 +103,62 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
         showMessage(activity, message);
     }
 
-    @OnClick(R.id.login_button)
-    public void loginButton() {
-        navigator.navigateToFacebookSignInPin(activity);
-    }
-
-    @Override
-    public void facebookSignInSuccessful(JSONObject jsonObject) {
-        presenter.signOutWithFacebook();
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
-        presenter.handleSignInWithFacebook(requestCode, resultCode, data);
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        //success
+                    } else {
+                        showErrorMessage(getString(R.string.text_default_detail));
+                        // If sign in fails, display a message to the user.
+                    }
+                    // ...
+                });
+    }
+
+
+    @Override
+    public void onSuccess(LoginResult loginResult) {
+        handleFacebookAccessToken(loginResult.getAccessToken());
+        Log.d("welcome", "onSuccess");
+    }
+
+    @Override
+    public void onCancel() {
+        Log.d("welcome", "onCancel");
+    }
+
+    @Override
+    public void onError(FacebookException error) {
+        Log.d("welcome", error.getMessage());
+
+    }
+
+    @Override
+    public String getUserId() {
+        return firebaseAuth.getCurrentUser() != null ? firebaseAuth.getCurrentUser().getUid() : null;
+    }
+
+    @Override
+    public void successRequest(Boolean aBoolean) {
+        Log.d("welcome", aBoolean.toString());
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }

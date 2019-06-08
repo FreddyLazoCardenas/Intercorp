@@ -93,6 +93,7 @@ ext {
             googlePlaces          : "com.google.android.gms:play-services-places:${playServicesVersion}",
             newGooglePlaces       : "com.google.android.libraries.places:places:${newApiPlaces}",
             googleAuth            : "com.google.android.gms:play-services-auth:${playServicesVersion}",
+            facebookLogin         : "com.facebook.android:facebook-login:${facebookVersion}",
             facebook              : "com.facebook.android:facebook-android-sdk:${facebookVersion}",
             lottie                : "com.airbnb.android:lottie:${lottieVersion}",
             collections           : "org.apache.commons:commons-collections4:${apacheVersion}",

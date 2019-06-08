@@ -1,13 +1,16 @@
 package com.papps.freddy_lazo.data.repository;
 
+import com.google.firebase.database.DataSnapshot;
 import com.papps.freddy_lazo.data.network.firebase.FirebaseDB;
 import com.papps.freddy_lazo.data.network.firebase.References;
 import com.papps.freddy_lazo.domain.repository.UserRepository;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 
+@Singleton
 public class UserDataRepository implements UserRepository {
 
     private FirebaseDB firebaseDB;
@@ -20,7 +23,13 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public Observable<Void> saveUser(long userId, Object userData) {
-        return firebaseDB.observeSetValue(references.getUsersReference(), userData);
+    public Observable<Void> saveUser(String userId, Object userData) {
+        return firebaseDB.observeSetValue(references.getUsersReference(userId), userData);
     }
+
+    @Override
+    public Observable<Boolean> isUserRegister(String userId) {
+        return firebaseDB.observeValueEvent(references.getUsersReference(userId)).map(DataSnapshot::exists);
+    }
+
 }

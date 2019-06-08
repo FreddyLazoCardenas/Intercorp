@@ -8,25 +8,23 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
-public class RegisterUser extends UseCase {
+public class IsUserRegister extends UseCase {
 
     private final UserRepository repository;
     private String userId;
-    private Object userData;
 
     @Inject
-    public RegisterUser(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, UserRepository repository) {
+    IsUserRegister(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, UserRepository repository) {
         super(threadExecutor, postExecutionThread);
         this.repository = repository;
     }
 
-    public void bindParams(String userId, Object userData) {
+    public void bindParams(String userId) {
         this.userId = userId;
-        this.userData = userData;
     }
 
     @Override
     protected Observable buildUseCaseObservable() {
-        return repository.saveUser(userId, userData);
+        return repository.isUserRegister(userId);
     }
 }

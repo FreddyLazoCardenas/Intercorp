@@ -12,8 +12,8 @@ public class References {
         this.usersReference.keepSynced(true);
     }
 
-    public DatabaseReference getUsersReference() {
-        return usersReference;
+    public DatabaseReference getUsersReference(String key) {
+        return usersReference.child(key);
     }
 
     public enum Fields {

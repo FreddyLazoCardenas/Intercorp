@@ -31,19 +31,20 @@ android {
 dependencies {
     def dataDependencies = rootProject.ext.dataDependencies
 
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(":domain")
+    api project(':domain')
 
     api dataDependencies.retrofit
-    api dataDependencies.gson
+    api dataDependencies.loggingInterceptor
     api dataDependencies.gsonConverter
+    api dataDependencies.gson
     api dataDependencies.rxJava
     api dataDependencies.rxAndroid
+    compileOnly dataDependencies.javaxAnnotation
     api dataDependencies.javaxInject
     api dataDependencies.firebaseDatabase
-    api dataDependencies.loggingInterceptor
-    api dataDependencies.room
-    annotationProcessor dataDependencies.roomCompiler
+    annotationProcessor dataDependencies.loganSquareCompiler
+    api dataDependencies.loganSquare
+    api dataDependencies.loganSquareConverter
 
 }
