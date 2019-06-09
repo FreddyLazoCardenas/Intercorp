@@ -3,7 +3,9 @@ package com.papps.freddy_lazo.intercorp.navigation;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.papps.freddy_lazo.intercorp.R;
 import com.papps.freddy_lazo.intercorp.view.activity.BaseActivity;
 import com.papps.freddy_lazo.intercorp.view.activity.MainActivity;
@@ -45,8 +47,8 @@ public class Navigator {
         fragmentTransaction(activity, WelcomeFragment.newInstance(), false);
     }
 
-    public void navigateToRegisterFragment(WelcomeActivity activity) {
-        fragmentTransaction(activity, RegisterFragment.newInstance(), false);
+    public void navigateToRegisterFragment(WelcomeActivity activity, AccessToken token) {
+        fragmentTransaction(activity, RegisterFragment.newInstance(token), false);
     }
 
     //others

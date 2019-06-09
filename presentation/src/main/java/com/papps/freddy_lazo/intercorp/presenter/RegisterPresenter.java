@@ -1,12 +1,17 @@
 package com.papps.freddy_lazo.intercorp.presenter;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.papps.freddy_lazo.domain.interactor.DefaultObserver;
 import com.papps.freddy_lazo.domain.interactor.RegisterUser;
 import com.papps.freddy_lazo.intercorp.R;
 import com.papps.freddy_lazo.intercorp.model.UserModel;
 import com.papps.freddy_lazo.intercorp.view.interfaces.RegisterPresenterView;
+
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -32,13 +37,13 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenterView> {
     private void validateUserData() {
         if (!isValidUserId())
             return;
-        if(isValidField(view.getName()))
+        if (isValidField(view.getName()))
             return;
-        if(isValidField(view.getLastName()))
+        if (isValidField(view.getLastName()))
             return;
-        if(isValidField(view.getAge()))
+        if (isValidField(view.getAge()))
             return;
-        if(isValidField(view.getBirthday()))
+        if (isValidField(view.getBirthday()))
             return;
         sendRegisterRequest();
     }
@@ -59,6 +64,27 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenterView> {
     private boolean isValidUserId() {
         return view.getUserId() != null;
     }
+
+    public void getFacebookData() {
+        view.showLoading();
+        GraphRequest request = GraphRequest.newMeRequest(view.getAccessToken(), new FacebookGraphCallback());
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "first_name,last_name");
+        request.setParameters(parameters);
+        request.executeAsync();
+
+    }
+
+    public final class FacebookGraphCallback implements GraphRequest.GraphJSONObjectCallback {
+
+        @Override
+        public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+            view.hideLoading();
+            view.fillUi(jsonObject);
+        }
+
+    }
+
 
     private class RegisterUserObservable extends DefaultObserver<Void> {
 

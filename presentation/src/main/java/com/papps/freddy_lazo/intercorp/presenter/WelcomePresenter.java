@@ -1,6 +1,8 @@
 package com.papps.freddy_lazo.intercorp.presenter;
 
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginResult;
 import com.papps.freddy_lazo.domain.interactor.DefaultObserver;
 import com.papps.freddy_lazo.domain.interactor.IsUserRegister;
 import com.papps.freddy_lazo.intercorp.view.interfaces.WelcomePresenterView;
@@ -23,14 +25,20 @@ public class WelcomePresenter extends BasePresenter<WelcomePresenterView> {
        isUserRegister.dispose();
     }
 
-    public void isUserRegister() {
+    public void isUserRegister(AccessToken token) {
         if (view.getUserId() != null) {
             isUserRegister.bindParams(view.getUserId());
-            isUserRegister.execute(new IsUserRegisterObservable());
+            isUserRegister.execute(new IsUserRegisterObservable(token));
         }
     }
 
     private class IsUserRegisterObservable extends DefaultObserver<Boolean> {
+
+        private final AccessToken token;
+
+        IsUserRegisterObservable(AccessToken token) {
+            this.token = token;
+        }
 
         @Override
         protected void onStart() {
@@ -48,7 +56,7 @@ public class WelcomePresenter extends BasePresenter<WelcomePresenterView> {
         public void onNext(Boolean aBoolean) {
             super.onNext(aBoolean);
             view.hideLoading();
-            view.successRequest(aBoolean);
+            view.successRequest(aBoolean,token);
         }
     }
 }

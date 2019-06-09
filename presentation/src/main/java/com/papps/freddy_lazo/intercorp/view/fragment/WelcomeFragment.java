@@ -110,7 +110,7 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         //success
-                        presenter.isUserRegister();
+                        presenter.isUserRegister(token);
                     } else {
                         hideLoading();
                         showErrorMessage(getString(R.string.text_default_detail));
@@ -144,9 +144,9 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
     }
 
     @Override
-    public void successRequest(Boolean isRegister) {
+    public void successRequest(Boolean isRegister , AccessToken token) {
         if (!isRegister) {
-            navigator.navigateToRegisterFragment(activity);
+            navigator.navigateToRegisterFragment(activity,token);
         }else{
             navigator.navigateToMainActivity(activity);
         }

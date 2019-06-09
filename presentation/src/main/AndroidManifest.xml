@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.papps.freddy_lazo.intercorp">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -21,8 +22,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.BaseActivity" />
-        <activity android:name=".view.activity.WelcomeActivity" />
         <activity android:name=".view.activity.MainActivity" />
+        <activity
+            android:name=".view.activity.WelcomeActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

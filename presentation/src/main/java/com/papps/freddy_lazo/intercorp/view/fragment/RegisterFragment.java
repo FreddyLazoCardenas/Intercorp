@@ -2,25 +2,27 @@ package com.papps.freddy_lazo.intercorp.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.papps.freddy_lazo.intercorp.R;
 import com.papps.freddy_lazo.intercorp.internal.dagger.component.DaggerWelcomeFragmentComponent;
 import com.papps.freddy_lazo.intercorp.presenter.RegisterPresenter;
 import com.papps.freddy_lazo.intercorp.view.activity.WelcomeActivity;
 import com.papps.freddy_lazo.intercorp.view.interfaces.RegisterPresenterView;
+
+import org.json.JSONObject;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -44,9 +46,15 @@ public class RegisterFragment extends BaseFragment implements RegisterPresenterV
 
     private WelcomeActivity activity;
     private FirebaseAuth firebaseAuth;
+    private static final String ARG_ACCESS_TOKEN = "user";
 
-    public static Fragment newInstance() {
-        return new RegisterFragment();
+
+    public static RegisterFragment newInstance(AccessToken token) {
+        RegisterFragment fragment = new RegisterFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_ACCESS_TOKEN, token);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Nullable
@@ -70,10 +78,13 @@ public class RegisterFragment extends BaseFragment implements RegisterPresenterV
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        firebaseAuth = FirebaseAuth.getInstance();
-        activity = (WelcomeActivity) getActivity();
-        presenter.setView(this);
-        initUI();
+        if (getArguments() != null) {
+            firebaseAuth = FirebaseAuth.getInstance();
+            activity = (WelcomeActivity) getActivity();
+            presenter.setView(this);
+            presenter.getFacebookData();
+            initUI();
+        }
     }
 
     @Override
@@ -130,6 +141,11 @@ public class RegisterFragment extends BaseFragment implements RegisterPresenterV
     }
 
     @Override
+    public AccessToken getAccessToken() {
+        return Objects.requireNonNull(getArguments()).getParcelable(ARG_ACCESS_TOKEN);
+    }
+
+    @Override
     public String getName() {
         return name.getText().toString();
     }
@@ -147,6 +163,14 @@ public class RegisterFragment extends BaseFragment implements RegisterPresenterV
     @Override
     public String getAge() {
         return age.getText().toString();
+    }
+
+    @Override
+    public void fillUi(JSONObject jsonObject) {
+        if (jsonObject != null) {
+            name.setText(jsonObject.optString("first_name"));
+            lastName.setText(jsonObject.optString("last_name"));
+        }
     }
 
     @Override
