@@ -2,6 +2,7 @@ package com.papps.freddy_lazo.intercorp.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
@@ -63,10 +64,10 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     }
 
     private void fillUi(UserModel model) {
-        name.setText(getString(R.string.name, model.getName()));
-        lastName.setText(getString(R.string.lastName, model.getLastName()));
-        age.setText(getString(R.string.age, model.getAge()));
-        birthday.setText(getString(R.string.birthday, model.getBirthDate()));
+        name.setText(Html.fromHtml(getString(R.string.name, model.getName())));
+        lastName.setText(Html.fromHtml(getString(R.string.lastName, model.getLastName())));
+        age.setText(Html.fromHtml(getString(R.string.age, model.getAge())));
+        birthday.setText(Html.fromHtml(getString(R.string.birthday, model.getBirthDate())));
     }
 
 

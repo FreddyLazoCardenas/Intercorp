@@ -99,6 +99,7 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        showLoading();
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -111,6 +112,7 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
                         //success
                         presenter.isUserRegister();
                     } else {
+                        hideLoading();
                         showErrorMessage(getString(R.string.text_default_detail));
                         // If sign in fails, display a message to the user.
                     }
@@ -126,11 +128,13 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
 
     @Override
     public void onCancel() {
+        hideLoading();
         showErrorMessage(getString(R.string.text_default_detail));
     }
 
     @Override
     public void onError(FacebookException error) {
+        hideLoading();
         showErrorMessage(error.getMessage());
     }
 

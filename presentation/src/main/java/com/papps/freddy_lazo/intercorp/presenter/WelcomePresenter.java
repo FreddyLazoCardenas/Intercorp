@@ -35,7 +35,6 @@ public class WelcomePresenter extends BasePresenter<WelcomePresenterView> {
         @Override
         protected void onStart() {
             super.onStart();
-            view.showLoading();
         }
 
         @Override
