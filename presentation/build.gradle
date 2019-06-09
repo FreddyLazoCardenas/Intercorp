@@ -1,9 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    defaultConfig {
-        multiDexEnabled true
-    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.papps.freddy_lazo.intercorp"
@@ -44,7 +41,6 @@ dependencies {
 
     annotationProcessor presentationDependencies.daggerCompiler
     annotationProcessor presentationDependencies.butterKnifeCompiler
-    annotationProcessor presentationDependencies.glideCompiler
 
 
     implementation presentationDependencies.androidAppCompat
@@ -52,10 +48,6 @@ dependencies {
     implementation presentationDependencies.constraintLayout
     implementation presentationDependencies.dagger
     implementation presentationDependencies.butterKnife
-    implementation presentationDependencies.shapeImageView
-    implementation presentationDependencies.glide
-    implementation presentationDependencies.imageCropper
-    implementation presentationDependencies.firebaseMessaging
     implementation presentationDependencies.firebaseAuth
     implementation presentationDependencies.firebaseCore
     implementation presentationDependencies.facebook

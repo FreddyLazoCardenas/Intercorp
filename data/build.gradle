@@ -34,17 +34,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(':domain')
 
-    api dataDependencies.retrofit
-    api dataDependencies.loggingInterceptor
-    api dataDependencies.gsonConverter
+    compileOnly dataDependencies.javaxAnnotation
+
     api dataDependencies.gson
     api dataDependencies.rxJava
     api dataDependencies.rxAndroid
-    compileOnly dataDependencies.javaxAnnotation
     api dataDependencies.javaxInject
     api dataDependencies.firebaseDatabase
-    annotationProcessor dataDependencies.loganSquareCompiler
-    api dataDependencies.loganSquare
-    api dataDependencies.loganSquareConverter
-
 }
