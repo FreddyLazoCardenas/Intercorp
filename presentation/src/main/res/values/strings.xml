@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="text_default_detail">Ocurrio un error inesperado</string>
+    <string name="fill_all_fields">Llenar todo los campos</string>
+    <string name="name">Nombre : %s</string>
+    <string name="lastName">Apellido : %s</string>
+    <string name="age">Edad : %s</string>
+    <string name="birthday">Fecha de nacimiento : %s</string>
 </resources>

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,11 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.papps.freddy_lazo.intercorp.R;
 import com.papps.freddy_lazo.intercorp.internal.dagger.component.DaggerWelcomeFragmentComponent;
 import com.papps.freddy_lazo.intercorp.presenter.WelcomePresenter;
@@ -80,7 +75,6 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
 
     @Override
     public void initUI() {
-        FacebookSdk.sdkInitialize(activity);
         initFacebookSignIn();
     }
 
@@ -128,18 +122,16 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
     @Override
     public void onSuccess(LoginResult loginResult) {
         handleFacebookAccessToken(loginResult.getAccessToken());
-        Log.d("welcome", "onSuccess");
     }
 
     @Override
     public void onCancel() {
-        Log.d("welcome", "onCancel");
+        showErrorMessage(getString(R.string.text_default_detail));
     }
 
     @Override
     public void onError(FacebookException error) {
-        Log.d("welcome", error.getMessage());
-
+        showErrorMessage(error.getMessage());
     }
 
     @Override
@@ -149,18 +141,20 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
 
     @Override
     public void successRequest(Boolean isRegister) {
-        if(!isRegister){
+        if (!isRegister) {
             navigator.navigateToRegisterFragment(activity);
+        }else{
+            navigator.navigateToMainActivity(activity);
         }
     }
 
     @Override
     public void showLoading() {
-
+        activity.showLoading();
     }
 
     @Override
     public void hideLoading() {
-
+        activity.hideLoading();
     }
 }

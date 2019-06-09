@@ -3,34 +3,37 @@ package com.papps.freddy_lazo.intercorp.presenter;
 
 import com.papps.freddy_lazo.domain.interactor.DefaultObserver;
 import com.papps.freddy_lazo.domain.interactor.IsUserRegister;
+import com.papps.freddy_lazo.domain.interactor.UserData;
+import com.papps.freddy_lazo.domain.model.User;
+import com.papps.freddy_lazo.intercorp.model.mapper.UserModelMapper;
+import com.papps.freddy_lazo.intercorp.view.interfaces.MainPresenterView;
 import com.papps.freddy_lazo.intercorp.view.interfaces.WelcomePresenterView;
 
 import javax.inject.Inject;
 
 
+public class MainPresenter extends BasePresenter<MainPresenterView> {
 
-public class WelcomePresenter extends BasePresenter<WelcomePresenterView> {
-
-   private final IsUserRegister isUserRegister;
+    private final UserData userData;
 
     @Inject
-    WelcomePresenter(IsUserRegister isUserRegister) {
-        this.isUserRegister = isUserRegister;
+    MainPresenter(UserData userData) {
+        this.userData = userData;
     }
 
     @Override
     protected void disposeUseCases() {
-       isUserRegister.dispose();
+        userData.dispose();
     }
 
-    public void isUserRegister() {
+    public void getUserData() {
         if (view.getUserId() != null) {
-            isUserRegister.bindParams(view.getUserId());
-            isUserRegister.execute(new IsUserRegisterObservable());
+            userData.bindParams(view.getUserId());
+            userData.execute(new userDataObservable());
         }
     }
 
-    private class IsUserRegisterObservable extends DefaultObserver<Boolean> {
+    private class userDataObservable extends DefaultObserver<User> {
 
         @Override
         protected void onStart() {
@@ -46,10 +49,10 @@ public class WelcomePresenter extends BasePresenter<WelcomePresenterView> {
         }
 
         @Override
-        public void onNext(Boolean aBoolean) {
-            super.onNext(aBoolean);
+        public void onNext(User model) {
+            super.onNext(model);
             view.hideLoading();
-            view.successRequest(aBoolean);
+            view.successRequest(UserModelMapper.transform(model));
         }
     }
 }

@@ -22,7 +22,7 @@
     </style>
 
 
-    <style name="Widget.RetVet.ButtonPrimary" parent="Widget.AppCompat.Button">
+    <style name="Widget.Intercorp.ButtonPrimary" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/button_primary_background</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:minHeight">0dp</item>

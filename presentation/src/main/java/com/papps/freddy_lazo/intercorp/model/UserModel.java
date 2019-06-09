@@ -9,14 +9,35 @@ public class UserModel implements Parcelable {
 
     public String name;
     public String lastName;
-    public int age;
+    public String age;
     public String birthDate;
 
-    public UserModel(String name, String lastName, int age, String birthDate) {
+
+    public UserModel() {
+    }
+
+    public UserModel(String name, String lastName, String age, String birthDate) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
         this.birthDate = birthDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
     }
 
     @Override
@@ -37,14 +58,14 @@ public class UserModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeString(this.lastName);
-        dest.writeInt(this.age);
+        dest.writeString(this.age);
         dest.writeString(this.birthDate);
     }
 
     protected UserModel(Parcel in) {
         this.name = in.readString();
         this.lastName = in.readString();
-        this.age = in.readInt();
+        this.age = in.readString();
         this.birthDate = in.readString();
     }
 

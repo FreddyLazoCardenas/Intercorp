@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.papps.freddy_lazo.intercorp.R;
 
 public class SplashActivity extends BaseActivity {
@@ -23,7 +24,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void splashLogic() {
-        if (preferencesManager.getCurrentUser() == null)
+        if (FirebaseAuth.getInstance().getCurrentUser() == null)
             navigator.navigateToWelcomeActivity(this);
         else
             navigator.navigateToMainActivity(this);

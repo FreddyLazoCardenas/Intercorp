@@ -1,5 +1,6 @@
 package com.papps.freddy_lazo.intercorp.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -8,31 +9,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TimePicker;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.papps.freddy_lazo.intercorp.R;
 import com.papps.freddy_lazo.intercorp.internal.dagger.component.DaggerWelcomeFragmentComponent;
 import com.papps.freddy_lazo.intercorp.presenter.RegisterPresenter;
-import com.papps.freddy_lazo.intercorp.presenter.WelcomePresenter;
 import com.papps.freddy_lazo.intercorp.view.activity.WelcomeActivity;
 import com.papps.freddy_lazo.intercorp.view.interfaces.RegisterPresenterView;
-import com.papps.freddy_lazo.intercorp.view.interfaces.WelcomePresenterView;
 
 import javax.inject.Inject;
 
@@ -47,6 +35,12 @@ public class RegisterFragment extends BaseFragment implements RegisterPresenterV
 
     @BindView(R.id.et_birthday)
     EditText birthday;
+    @BindView(R.id.et_name)
+    EditText name;
+    @BindView(R.id.et_last_name)
+    EditText lastName;
+    @BindView(R.id.et_age)
+    EditText age;
 
     private WelcomeActivity activity;
     private FirebaseAuth firebaseAuth;
@@ -84,6 +78,7 @@ public class RegisterFragment extends BaseFragment implements RegisterPresenterV
 
     @Override
     public void initUI() {
+        // no code need
     }
 
     @OnClick(R.id.et_birthday)
@@ -105,21 +100,22 @@ public class RegisterFragment extends BaseFragment implements RegisterPresenterV
 
     @Override
     public void showLoading() {
-
+        activity.showLoading();
     }
 
     @Override
     public void hideLoading() {
-
+        activity.hideLoading();
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        birthday.setText(String.format("%d-%d-%d", year, month + 1, dayOfMonth));
+        birthday.setText(String.format("%d-%d-%d", dayOfMonth, month + 1, year));
     }
 
     @OnClick(R.id.btn_register)
-    public void btnRegister(){
+    public void btnRegister() {
         presenter.registerUser();
     }
 
@@ -130,6 +126,26 @@ public class RegisterFragment extends BaseFragment implements RegisterPresenterV
 
     @Override
     public void successRequest() {
+        navigator.navigateToMainActivity(activity);
+    }
 
+    @Override
+    public String getName() {
+        return name.getText().toString();
+    }
+
+    @Override
+    public String getLastName() {
+        return lastName.getText().toString();
+    }
+
+    @Override
+    public String getBirthday() {
+        return birthday.getText().toString();
+    }
+
+    @Override
+    public String getAge() {
+        return age.getText().toString();
     }
 }

@@ -1,7 +1,10 @@
 package com.papps.freddy_lazo.intercorp.presenter;
 
+import android.text.TextUtils;
+
 import com.papps.freddy_lazo.domain.interactor.DefaultObserver;
 import com.papps.freddy_lazo.domain.interactor.RegisterUser;
+import com.papps.freddy_lazo.intercorp.R;
 import com.papps.freddy_lazo.intercorp.model.UserModel;
 import com.papps.freddy_lazo.intercorp.view.interfaces.RegisterPresenterView;
 
@@ -23,10 +26,38 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenterView> {
     }
 
     public void registerUser() {
-        if (view.getUserId() != null) {
-            registerUser.bindParams(view.getUserId(), new UserModel("Freddy","Lazo",3,"12-12-98"));
-            registerUser.execute(new RegisterUserObservable());
+        validateUserData();
+    }
+
+    private void validateUserData() {
+        if (!isValidUserId())
+            return;
+        if(isValidField(view.getName()))
+            return;
+        if(isValidField(view.getLastName()))
+            return;
+        if(isValidField(view.getAge()))
+            return;
+        if(isValidField(view.getBirthday()))
+            return;
+        sendRegisterRequest();
+    }
+
+    private void sendRegisterRequest() {
+        registerUser.bindParams(view.getUserId(), new UserModel(view.getName(), view.getLastName(), view.getAge(), view.getBirthday()));
+        registerUser.execute(new RegisterUserObservable());
+    }
+
+    private boolean isValidField(String field) {
+        if (TextUtils.isEmpty(field.trim())) {
+            view.showErrorMessage(view.context().getString(R.string.fill_all_fields));
+            return true;
         }
+        return false;
+    }
+
+    private boolean isValidUserId() {
+        return view.getUserId() != null;
     }
 
     private class RegisterUserObservable extends DefaultObserver<Void> {
@@ -34,16 +65,20 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenterView> {
         @Override
         protected void onStart() {
             super.onStart();
+            view.showLoading();
         }
 
         @Override
         public void onError(Throwable e) {
             super.onError(e);
+            view.hideLoading();
+            view.showErrorMessage(e.getMessage());
         }
 
         @Override
         public void onComplete() {
             super.onComplete();
+            view.hideLoading();
             view.successRequest();
         }
     }
