@@ -1,3 +1,2 @@
 # Intercorp
-Intercorp challenge
-Intercorp - Reto Tech
+Intercorp challenge - Reto Tech
