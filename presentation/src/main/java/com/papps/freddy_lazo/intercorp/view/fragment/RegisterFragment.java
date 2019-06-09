@@ -148,4 +148,10 @@ public class RegisterFragment extends BaseFragment implements RegisterPresenterV
     public String getAge() {
         return age.getText().toString();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.destroy();
+    }
 }

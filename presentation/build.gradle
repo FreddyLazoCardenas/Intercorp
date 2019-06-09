@@ -10,6 +10,16 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+                 storeFile file('../intercorp/intercorp.keystore')
+                 storePassword '12345678'
+                 keyAlias 'intercorpKey'
+                 keyPassword '12345678'
+        }
+    }
+
     buildTypes {
         debug{
             minifyEnabled false
@@ -17,10 +27,13 @@ android {
             resValue 'string', 'facebook_app_id', '"600212347054672"'
         }
         release {
-            minifyEnabled false
+            debuggable false
+            signingConfig signingConfigs.release
+            resValue 'string', 'facebook_app_id', '"600212347054672"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 
 
     compileOptions {

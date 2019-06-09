@@ -87,4 +87,10 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     public void successRequest(UserModel model) {
         fillUi(model);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.destroy();
+    }
 }

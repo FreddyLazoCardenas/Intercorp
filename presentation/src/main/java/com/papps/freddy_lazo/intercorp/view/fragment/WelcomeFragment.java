@@ -161,4 +161,10 @@ public class WelcomeFragment extends BaseFragment implements WelcomePresenterVie
     public void hideLoading() {
         activity.hideLoading();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.destroy();
+    }
 }
