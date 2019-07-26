@@ -1,11 +1,10 @@
 package com.papps.freddy_lazo.intercorp.navigation;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 import com.papps.freddy_lazo.intercorp.R;
 import com.papps.freddy_lazo.intercorp.view.activity.BaseActivity;
 import com.papps.freddy_lazo.intercorp.view.activity.MainActivity;
@@ -15,7 +14,6 @@ import com.papps.freddy_lazo.intercorp.view.fragment.RegisterFragment;
 import com.papps.freddy_lazo.intercorp.view.fragment.WelcomeFragment;
 import com.papps.freddy_lazo.intercorp.view.pickers.DatePickerFragment;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import javax.inject.Inject;

@@ -36,6 +36,8 @@ dependencies {
 
     compileOnly dataDependencies.javaxAnnotation
 
+    implementation 'com.google.firebase:firebase-firestore:20.2.0'
+
     api dataDependencies.gson
     api dataDependencies.rxJava
     api dataDependencies.rxAndroid

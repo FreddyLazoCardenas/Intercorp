@@ -1,12 +1,13 @@
 package com.papps.freddy_lazo.intercorp;
 
-import android.app.Application;
+
+import androidx.multidex.MultiDexApplication;
 
 import com.papps.freddy_lazo.intercorp.internal.dagger.component.ApplicationComponent;
 import com.papps.freddy_lazo.intercorp.internal.dagger.component.DaggerApplicationComponent;
 import com.papps.freddy_lazo.intercorp.internal.dagger.module.ApplicationModule;
 
-public class AndroidApplication extends Application {
+public class AndroidApplication extends MultiDexApplication {
 
     private ApplicationComponent mApplicationComponent;
 
