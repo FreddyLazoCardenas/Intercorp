@@ -73,6 +73,7 @@ public class FirebaseDBImpl implements FirebaseDB {
                 DocumentSnapshot document = task.getResult();
                 emitter.onNext(document);
             } else {
+
                 emitter.onError(task.getException());
             }
         }));
